@@ -41,11 +41,11 @@
 #include <BatteryMeter.h>
 
 unsigned long timer = 60;
-short numPulsers = 4;
-short numleds = 12;
+short numPulsers = 1;
+short numleds = 8;
 short numpins = 4;
 short startMode = 0; //OFF - TO BE USED
-short numSwitches = 5;
+short numSwitches = 3;
 
 short leftGreenPins[4] = {22, 24, 26, 28};
 short leftBluePins[4] = {23, 25, 27, 29};
@@ -259,17 +259,14 @@ int scalePot(int input) {
 }
 
 void readyBlink() {
-  pinMode(22, OUTPUT);
-  pinMode(24, OUTPUT);
-  pinMode(26, INPUT);
-  pinMode(28, INPUT);
-  digitalWrite(24, LOW);
-  delay(450);
-  for(int i = 0; i < 10; i++) {
-      digitalWrite(22, HIGH);
-      delay(50);
-      digitalWrite(22, LOW);
-      delay(50);
+  for(short i = 0; i < numPulsers;i++) {
+   pulsers[i]->on();
+   delay(50);
+   pulsers[i]->off();
   }
-  
+  for(short i = 0; i < numPulsers;i--) {
+   pulsers[i]->on();
+   delay(50);
+   pulsers[i]->off();
+  }
 }
