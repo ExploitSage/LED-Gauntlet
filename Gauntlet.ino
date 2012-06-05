@@ -40,8 +40,11 @@
 #include <SwitchArray.h>
 #include <BatteryMeter.h>
 
+unsigned long initDebounce = 2000;
+boolean switcher= true;
+
 unsigned long timer = 60;
-short numPulsers = 1;
+short numPulsers = 2;
 short numleds = 8;
 short numpins = 4;
 short startMode = 0; //OFF - TO BE USED
@@ -121,7 +124,6 @@ boolean current = false;
 short buttonPin = 47;
 
 short potPin = 1;
-
 int debounceInterval = 200;
 long debounceTimer;
 
@@ -212,8 +214,7 @@ void setup() {
   
   debounceTimer = millis();
   
-  readyBlink();
-  
+  loading();
 }
 
 void loop() {
@@ -258,15 +259,25 @@ int scalePot(int input) {
   return ((int)200*((double)input /1023));
 }
 
-void readyBlink() {
-  for(short i = 0; i < numPulsers;i++) {
-   pulsers[i]->on();
-   delay(50);
-   pulsers[i]->off();
-  }
-  for(short i = 0; i < numPulsers;i--) {
-   pulsers[i]->on();
-   delay(50);
-   pulsers[i]->off();
+void loading() {
+  TimeKeeper loadTimer = TimeKeeper(150);
+  
+  while(millis() <= initDebounce) {
+    if(loadTimer.check()) {
+      switcher = !switcher;
+    }
+    if(switcher) {
+      for(int i = 0; i < numPulsers; i++) {
+        pulsers[i]->setTime(0);
+        pulsers[i]->setMode(8);
+      }
+    } else {
+      for(int i = 0; i < numPulsers; i++) {
+        pulsers[i]->setMode(0);
+      }
+    }
+    for(int i = 0; i < numPulsers; i++) {
+      pulsers[i]->checkTimers();
+    }
   }
 }
