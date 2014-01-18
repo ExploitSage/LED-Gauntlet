@@ -1,0 +1,18 @@
+#######################################
+# Syntax Coloring Map CharliePulser
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+TimeKeeper	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+reset	KEYWORD2
+disable	KEYWORD2
+enable	KEYWORD2
+check	KEYWORD2
+setInterval	KEYWORD2
