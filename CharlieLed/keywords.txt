@@ -1,0 +1,15 @@
+#######################################
+# Syntax Coloring Map CharliePulser
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CharlieLed	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+getVoltagePin	KEYWORD2
+getGroundPin	KEYWORD2
